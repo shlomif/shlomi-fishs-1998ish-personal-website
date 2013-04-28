@@ -1,0 +1,149 @@
+<HTML>
+<BODY BGCOLOR="#00B0B0">
+
+<H2>CIR Submission Form</H2>
+<BR><BR>
+
+<SCRIPT LANGUAGE ="javascript">
+<!--
+function isValidVersionStr(szVersion)
+{
+	var a, ch;
+        for(a=0;a<szVersion.length;a++)
+        {
+            ch = szVersion.substring(a, a+1);
+            if ((ch < "0") || (ch > "9"))
+                break;
+        }
+        if (a == szVersion.length )
+            return 1;
+
+        return (szVersion.substring(0,5).toLowerCase() == "label") ;
+}
+
+function isValidFilepathStr(szFile)
+{
+    return (szFile.substring(0,2) == "$/");
+}
+
+function add_file_line(theForm)
+{
+    if (! isValidVersionStr(theForm.js_addfile_ver.value))
+    {
+        alert("The SourceSafe Revision field should be a positive integer!");
+        return;
+    }
+    if (! isValidFilepathStr(theForm.js_addfile_fn.value) )
+    {
+        alert("The SourceSafe path should be formatted like this:\n$/Project/Subproj/Sub... FILENAME.[c,cpp,h]");
+        return;
+    }
+
+    
+    var curText = theForm.files.value;
+    curText = curText + ((curText.length != 0) ? "\r\n" : "") + theForm.js_addfile_fn.value + "   " + theForm.js_addfile_ver.value;
+    theForm.files.value = curText;
+}
+
+function call_me(theForm)
+{
+    alert("Cannot be changed directly!");
+    theForm.cause_of_change.focus();
+    // theForm.fn.select();
+}
+//     -->
+</SCRIPT>
+
+
+<FORM ACTION="send.pl" METHOD=POST NAME="cir_form">
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP>
+Sender: &nbsp;&nbsp; <SELECT NAME="sender">
+<OPTION VALUE=" ">
+<OPTION VALUE="Alexey Bogoslavsky <alexey@slink.co.il&gt;">Alexey
+<OPTION VALUE="Erez Sharon <erez@slink.co.il&gt;">Erez
+<OPTION VALUE="Gil Keuffman <gil@slink.co.il&gt;">Gil
+<OPTION VALUE="Ilan Sherfer <ilans@slink.co.il&gt;">Ilan S.
+<OPTION VALUE="Limor Yaakov <limor@slink.co.il&ht">Limor
+<OPTION VALUE="Michael Grabelkovsky <michael@slink.co.il&gt;">Michael G.
+<OPTION VALUE="Michael Nehorai <michaeln@slink.co.il&gt;">Michael N.
+<OPTION VALUE="Ron Zolty <ron@slink.co.il&gt;">Ron Z.
+<OPTION VALUE="Sasha Gamous <sasha@slink.co.il&gt;">Sasha
+<OPTION VALUE="Sergey Ukhterov <sergey@slink.co.il&gt;">Sergey
+<OPTION VALUE="Shlomi Fish <shlomi@slink.co.il&gt;">Shlomi
+<OPTION VALUE="Yoram Katz <yoram@slink.co.il&gt;">Yoram
+<OPTION VALUE="Yuri Benditovitch <yuri@slink.co.il&gt;">Yuri
+</SELECT>
+</TD>
+<TD VALIGN=TOP>
+"Other" Name and Email: <INPUT NAME="other_sender_name"><BR>
+(If filled then "Sender" is ignored.)
+</TD>
+</TR>
+</TABLE>
+<BR><BR>
+
+Subject: &nbsp;&nbsp; <BR>
+<SELECT SIZE=4 MULTIPLE NAME="subject">
+<OPTION> STRMMGR
+<OPTION> MTLHAL
+<OPTION> MDMPORT
+<OPTION> AUD VXD
+<OPTION> AUD DRV
+<OPTION> MTLFAX
+<OPTION> CALL PRG
+<OPTION> DP V.34
+<OPTION> DP V.32
+<OPTION> DP V.22
+<OPTION> DP V.8
+<OPTION> DP Voice
+<OPTION> DP K56
+<OPTION> V.42
+<OPTION> SETUP
+</SELECT>
+<BR><BR>
+
+<BR><BR>
+<TABLE>
+<TR><TD>SourceSafe Path</TD><TD>Revision No.</TD><TD></TD><TD>(Full SSafe path + version #</TD></TR>
+<TD><INPUT NAME="js_addfile_fn"></TD>
+<TD><INPUT NAME="js_addfile_ver"></TD>
+<TD><INPUT TYPE="button" NAME="js_addfile_addbtn" VALUE="Add" onClick="add_file_line(this.form);"></TD>
+<TD>e.g. $/MDMPORT/modem.cpp &nbsp; 33)</TD>
+</TABLE>
+<BR>
+Files Modified: <BR>
+(READ ONLY. Use this field only for corrections) <BR>
+<TEXTAREA COLS=55 ROWS=3 NAME="files"></TEXTAREA>
+<BR><BR><BR>
+
+Cause of change:<BR>
+(e.g. SCR #123)<BR>
+
+<TEXTAREA COLS=55 ROWS=3 NAME="cause_of_change"></TEXTAREA>
+<BR><BR><BR>
+
+Request for Test:<BR>
+(Recommended tests beyond SCR description - OPTIONAL)
+ 
+<TEXTAREA COLS=55 ROWS=3 NAME="request_for_test"></TEXTAREA>
+<BR><BR><BR>
+
+Priority: <BR>
+(ASAP or normal SCR priority)
+<BR>
+<SELECT NAME="priority">
+<OPTION>SCR priority
+<OPTION>ASAP
+</SELECT> <BR><BR><BR>
+
+Notes: (OPTIONAL) <BR>
+<TEXTAREA COLS=55 ROWS=10 NAME="text"></TEXTAREA>
+<BR>
+<BR>
+<INPUT TYPE=SUBMIT VALUE="Send The Report">
+
+</FORM>
+
