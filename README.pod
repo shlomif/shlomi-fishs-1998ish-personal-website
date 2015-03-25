@@ -1,0 +1,14 @@
+=encoding utf8
+
+=head1 Shlomi Fish’s Old-1998 Site
+
+These are the data files for Shlomi Fish’s Old 1998 Website. It can be viewed
+here:
+
+L<http://old-1998-site.shlomifish.org/>
+
+The contemporary site is viewable here:
+
+L<http://www.shlomifish.org/> .
+
+=cut
